@@ -17,16 +17,16 @@
                     </a>
                 </div>
                 <div class="hidden sm:flex sm:space-x-6">
-                    <a href="{{ route('home') }}" class="text-[#64748B] hover:text-[#2563EB] inline-flex items-center px-3 py-2 text-sm font-medium transition-colors">
+                    <a href="{{ route('home') }}" class="text-[#64748B] hover:text-sky-600 inline-flex items-center px-3 py-2 text-sm font-medium transition-colors">
                         Home
                     </a>
-                    <a href="{{ route('doctors.index') }}" class="text-[#64748B] hover:text-[#2563EB] inline-flex items-center px-3 py-2 text-sm font-medium transition-colors">
+                    <a href="{{ route('doctors.index') }}" class="text-[#64748B] hover:text-sky-600 inline-flex items-center px-3 py-2 text-sm font-medium transition-colors">
                         Doctors
                     </a>
                 </div>
             </div>
             <div class="flex items-center">
-                <a href="{{ route('admin.users.index') }}" class="text-[#64748B] hover:text-[#2563EB] px-3 py-2 text-sm font-medium transition-colors">
+                <a href="{{ route('admin.users.index') }}" class="text-[#64748B] hover:text-sky-600 px-3 py-2 text-sm font-medium transition-colors">
                     Admin
                 </a>
             </div>
@@ -36,12 +36,19 @@
     <main class="py-12">
         @if(session('success'))
             <div class="max-w-7xl mx-auto px-6 lg:px-16 mb-6">
-                <div class="bg-[#A7F3D0] border border-[#10B981] text-[#065F46] px-4 py-3 rounded-xl shadow-sm">
-                    <div class="flex items-center space-x-2">
-                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="1.5">
-                            <path stroke-linecap="round" stroke-linejoin="round" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
-                        </svg>
-                        <span>{{ session('success') }}</span>
+                <div class="rounded-md bg-green-50 p-4 dark:bg-green-500/10 dark:outline dark:outline-green-500/20">
+                    <div class="flex">
+                        <div class="shrink-0">
+                            <svg viewBox="0 0 20 20" fill="currentColor" data-slot="icon" aria-hidden="true" class="size-5 text-green-400">
+                                <path d="M10 18a8 8 0 1 0 0-16 8 8 0 0 0 0 16Zm3.857-9.809a.75.75 0 0 0-1.214-.882l-3.483 4.79-1.88-1.88a.75.75 0 1 0-1.06 1.061l2.5 2.5a.75.75 0 0 0 1.137-.089l4-5.5Z" clip-rule="evenodd" fill-rule="evenodd" />
+                            </svg>
+                        </div>
+                        <div class="ml-3">
+                            <h3 class="text-sm font-medium text-green-800 dark:text-green-200">Success</h3>
+                            <div class="mt-2 text-sm text-green-700 dark:text-green-200/85">
+                                <p>{{ session('success') }}</p>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -49,12 +56,24 @@
 
         @if($errors->any())
             <div class="max-w-7xl mx-auto px-6 lg:px-16 mb-6">
-                <div class="bg-red-50 border border-red-200 text-red-800 px-4 py-3 rounded-xl shadow-sm">
-                    <ul class="space-y-1">
-                        @foreach($errors->all() as $error)
-                            <li>{{ $error }}</li>
-                        @endforeach
-                    </ul>
+                <div class="rounded-md bg-red-50 p-4 dark:bg-red-500/10 dark:outline dark:outline-red-500/20">
+                    <div class="flex">
+                        <div class="shrink-0">
+                            <svg viewBox="0 0 20 20" fill="currentColor" data-slot="icon" aria-hidden="true" class="size-5 text-red-400">
+                                <path fill-rule="evenodd" d="M10 18a8 8 0 1 0 0-16 8 8 0 0 0 0 16ZM8.28 7.22a.75.75 0 0 0-1.06 1.06L8.94 10l-1.72 1.72a.75.75 0 1 0 1.06 1.06L10 11.06l1.72 1.72a.75.75 0 1 0 1.06-1.06L11.06 10l1.72-1.72a.75.75 0 0 0-1.06-1.06L10 8.94 8.28 7.22Z" clip-rule="evenodd" />
+                            </svg>
+                        </div>
+                        <div class="ml-3">
+                            <h3 class="text-sm font-medium text-red-800 dark:text-red-200">Error</h3>
+                            <div class="mt-2 text-sm text-red-700 dark:text-red-200/85">
+                                <ul class="list-disc list-inside space-y-1">
+                                    @foreach($errors->all() as $error)
+                                        <li>{{ $error }}</li>
+                                    @endforeach
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
         @endif
@@ -135,9 +154,9 @@
                     <p class="mt-2 text-sm/6 text-[#64748B]">Get health tips and appointment reminders delivered to your inbox.</p>
                     <form class="mt-6 sm:flex sm:max-w-md">
                         <label for="email-address" class="sr-only">Email address</label>
-                        <input id="email-address" type="email" name="email-address" required placeholder="Enter your email" autocomplete="email" class="w-full min-w-0 rounded-md bg-white px-3 py-1.5 text-base text-[#0F172A] outline-1 -outline-offset-1 outline-slate-300 placeholder:text-[#64748B] focus:outline-2 focus:-outline-offset-2 focus:outline-[#2563EB] sm:w-64 sm:text-sm/6 xl:w-full" />
+                        <input id="email-address" type="email" name="email-address" required placeholder="Enter your email" autocomplete="email" class="w-full min-w-0 rounded-md bg-white px-3 py-1.5 text-base text-[#0F172A] outline-1 -outline-offset-1 outline-slate-300 placeholder:text-[#64748B] focus:outline-2 focus:-outline-offset-2 focus:outline-sky-600 sm:w-64 sm:text-sm/6 xl:w-full" />
                         <div class="mt-4 sm:mt-0 sm:ml-4 sm:shrink-0">
-                            <button type="submit" class="flex w-full items-center justify-center rounded-md bg-[#2563EB] px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-[#1E3A8A] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#2563EB]">Subscribe</button>
+                            <button type="submit" class="inline-flex items-center justify-center gap-x-1.5 w-full rounded-md bg-sky-600 px-3 py-2 text-sm font-semibold text-white shadow-xs hover:bg-sky-500 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-sky-600 dark:bg-sky-500 dark:shadow-none dark:hover:bg-sky-400 dark:focus-visible:outline-sky-500">Subscribe</button>
                         </div>
                     </form>
                 </div>

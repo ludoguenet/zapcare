@@ -15,14 +15,14 @@
                 <li>
                     <div class="px-6 py-5 flex items-center justify-between hover:bg-slate-50 transition-colors">
                         <div class="flex items-center gap-x-4 flex-1 min-w-0">
-                            <div class="flex h-12 w-12 flex-none items-center justify-center rounded-lg bg-[#DBEAFE] ring-1 ring-slate-900/10">
-                                <i data-lucide="user-round" class="w-6 h-6 text-[#2563EB]"></i>
+                            <div class="flex h-12 w-12 flex-none items-center justify-center rounded-lg bg-sky-100 ring-1 ring-slate-900/10">
+                                <i data-lucide="user-round" class="w-6 h-6 text-sky-600"></i>
                             </div>
                             <div class="flex-1 min-w-0">
                                 <div class="flex items-center gap-x-3">
                                     <p class="text-sm font-medium text-[#0F172A] truncate">{{ $user->name }}</p>
                                     @if($user->is_doctor)
-                                        <span class="inline-flex items-center rounded-md bg-[#DBEAFE] px-2 py-1 text-xs font-medium text-[#1E3A8A] ring-1 ring-inset ring-[#2563EB]/20">
+                                        <span class="inline-flex items-center rounded-md bg-sky-100 px-2 py-1 text-xs font-medium text-sky-800 ring-1 ring-inset ring-sky-600/20">
                                             Doctor
                                         </span>
                                     @else
@@ -43,7 +43,7 @@
                                 @endif
                             </div>
                         </div>
-                        <a href="{{ route('admin.users.edit', $user) }}" class="ml-4 text-sm font-medium text-[#2563EB] hover:text-[#1E3A8A] transition-colors">
+                        <a href="{{ route('admin.users.edit', $user) }}" class="ml-4 text-sm font-medium text-sky-600 hover:text-sky-800 transition-colors">
                             Edit
                         </a>
                     </div>

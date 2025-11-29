@@ -12,7 +12,7 @@ A modern, minimalist clinic scheduling application built with Laravel, Blade, Al
 
 ## Requirements
 
-- PHP 8.2+
+- PHP 8.5+
 - Composer
 - Node.js & NPM
 - Database (MySQL, PostgreSQL, or SQLite)

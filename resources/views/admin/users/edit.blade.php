@@ -20,19 +20,19 @@
             <div class="mb-6">
                 <label for="name" class="block text-sm font-medium text-[#0F172A] mb-2">Name</label>
                 <input type="text" id="name" name="name" value="{{ old('name', $user->name) }}" required
-                    class="w-full px-4 py-3 border border-slate-300 rounded-lg shadow-sm focus:border-[#2563EB] focus:ring-2 focus:ring-[#2563EB] focus:ring-opacity-20 text-[#0F172A] text-sm transition-colors">
+                    class="w-full px-4 py-3 border border-slate-300 rounded-lg shadow-sm focus:border-sky-600 focus:ring-2 focus:ring-sky-600 focus:ring-opacity-20 text-[#0F172A] text-sm transition-colors">
             </div>
 
             <div class="mb-6">
                 <label for="email" class="block text-sm font-medium text-[#0F172A] mb-2">Email</label>
                 <input type="email" id="email" name="email" value="{{ old('email', $user->email) }}" required
-                    class="w-full px-4 py-3 border border-slate-300 rounded-lg shadow-sm focus:border-[#2563EB] focus:ring-2 focus:ring-[#2563EB] focus:ring-opacity-20 text-[#0F172A] text-sm transition-colors">
+                    class="w-full px-4 py-3 border border-slate-300 rounded-lg shadow-sm focus:border-sky-600 focus:ring-2 focus:ring-sky-600 focus:ring-opacity-20 text-[#0F172A] text-sm transition-colors">
             </div>
 
             <div class="mb-6">
                 <label class="flex items-center cursor-pointer">
                     <input type="checkbox" name="is_doctor" value="1" {{ $user->is_doctor ? 'checked' : '' }}
-                        class="rounded border-slate-300 text-[#2563EB] focus:ring-[#2563EB] w-5 h-5">
+                        class="rounded border-slate-300 text-sky-600 focus:ring-sky-600 w-5 h-5">
                     <span class="ml-3 text-sm font-medium text-[#0F172A]">Is Doctor</span>
                 </label>
             </div>
@@ -44,7 +44,7 @@
                         <label class="flex items-center cursor-pointer p-3 rounded-lg hover:bg-slate-50 transition-colors">
                             <input type="checkbox" name="specialties[]" value="{{ $specialty->id }}"
                                 {{ $user->specialties->contains($specialty->id) ? 'checked' : '' }}
-                                class="rounded border-slate-300 text-[#2563EB] focus:ring-[#2563EB] w-5 h-5">
+                                class="rounded border-slate-300 text-sky-600 focus:ring-sky-600 w-5 h-5">
                             <span class="ml-3 text-sm text-[#0F172A]">{{ $specialty->name }}</span>
                         </label>
                     @endforeach
@@ -67,13 +67,13 @@
                                 <label class="flex items-center cursor-pointer">
                                     <input type="checkbox" name="schedule[{{ $dayKey }}][am]" value="1"
                                         {{ isset($scheduleData) && isset($scheduleData[$dayKey]['am']) && $scheduleData[$dayKey]['am'] ? 'checked' : '' }}
-                                        class="rounded border-slate-300 text-[#2563EB] focus:ring-[#2563EB] w-4 h-4">
+                                        class="rounded border-slate-300 text-sky-600 focus:ring-sky-600 w-4 h-4">
                                     <span class="ml-2 text-sm text-[#0F172A]">AM</span>
                                 </label>
                                 <label class="flex items-center cursor-pointer">
                                     <input type="checkbox" name="schedule[{{ $dayKey }}][pm]" value="1"
                                         {{ isset($scheduleData) && isset($scheduleData[$dayKey]['pm']) && $scheduleData[$dayKey]['pm'] ? 'checked' : '' }}
-                                        class="rounded border-slate-300 text-[#2563EB] focus:ring-[#2563EB] w-4 h-4">
+                                        class="rounded border-slate-300 text-sky-600 focus:ring-sky-600 w-4 h-4">
                                     <span class="ml-2 text-sm text-[#0F172A]">PM</span>
                                 </label>
                             </div>
@@ -83,10 +83,10 @@
             </div>
 
             <div class="flex gap-4">
-                <button type="submit" class="bg-[#2563EB] hover:bg-[#1E3A8A] text-white px-6 py-3 rounded-lg font-medium shadow-sm transition-colors">
+                <button type="submit" class="inline-flex items-center gap-x-1.5 rounded-md bg-sky-600 px-3 py-2 text-sm font-semibold text-white shadow-xs hover:bg-sky-500 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-sky-600 dark:bg-sky-500 dark:shadow-none dark:hover:bg-sky-400 dark:focus-visible:outline-sky-500">
                     Update User
                 </button>
-                <a href="{{ route('admin.users.index') }}" class="bg-slate-100 hover:bg-slate-200 text-[#0F172A] px-6 py-3 rounded-lg font-medium transition-colors">
+                <a href="{{ route('admin.users.index') }}" class="inline-flex items-center gap-x-1.5 rounded-md bg-sky-50 px-3 py-2 text-sm font-semibold text-sky-600 shadow-xs hover:bg-sky-100 dark:bg-sky-500/20 dark:text-sky-400 dark:shadow-none dark:hover:bg-sky-500/30">
                     Cancel
                 </a>
             </div>

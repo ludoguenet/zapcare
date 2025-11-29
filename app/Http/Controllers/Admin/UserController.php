@@ -32,21 +32,22 @@ class UserController extends Controller
         // Load existing schedule data if user is a doctor
         $scheduleData = [];
         if ($user->is_doctor) {
-            $officeHoursSchedule = $user->schedules()
+            $officeHoursSchedules = $user->schedules()
                 ->where('name', 'Office Hours')
                 ->with('periods')
-                ->first();
+                ->get();
             
-            if ($officeHoursSchedule) {
+            // Process each schedule to build the complete schedule data
+            foreach ($officeHoursSchedules as $schedule) {
                 // Get days from frequency_config
-                $frequencyConfig = $officeHoursSchedule->frequency_config ?? [];
+                $frequencyConfig = $schedule->frequency_config ?? [];
                 $days = $frequencyConfig['days'] ?? [];
                 
-                // Determine AM/PM availability from periods
+                // Determine AM/PM availability from periods for this specific schedule
                 $hasMorning = false;
                 $hasAfternoon = false;
                 
-                foreach ($officeHoursSchedule->periods as $period) {
+                foreach ($schedule->periods as $period) {
                     $startHour = (int) date('H', strtotime($period->start_time));
                     if ($startHour < 12) {
                         $hasMorning = true;
@@ -55,13 +56,19 @@ class UserController extends Controller
                     }
                 }
                 
-                // Build schedule data structure
-                foreach (['monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday', 'sunday'] as $day) {
-                    if (in_array($day, $days)) {
-                        $scheduleData[$day] = [
-                            'am' => $hasMorning,
-                            'pm' => $hasAfternoon,
-                        ];
+                // Build schedule data structure for each day in this schedule
+                foreach ($days as $day) {
+                    // Initialize the day if it doesn't exist
+                    if (!isset($scheduleData[$day])) {
+                        $scheduleData[$day] = ['am' => false, 'pm' => false];
+                    }
+                    
+                    // Set AM/PM based on this schedule's periods
+                    if ($hasMorning) {
+                        $scheduleData[$day]['am'] = true;
+                    }
+                    if ($hasAfternoon) {
+                        $scheduleData[$day]['pm'] = true;
                     }
                 }
             }

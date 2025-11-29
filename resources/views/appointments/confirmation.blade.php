@@ -13,7 +13,7 @@
         <div class="p-8">
             <h1 class="text-2xl font-semibold text-[#0F172A] mb-3">Your appointment is confirmed.</h1>
             <p class="text-sm text-[#64748B] mb-8">Your appointment has been successfully booked.</p>
-            <a href="{{ route('home') }}" class="inline-block bg-[#2563EB] hover:bg-[#1E3A8A] text-white px-8 py-3 rounded-lg font-medium shadow-sm transition-colors">
+            <a href="{{ route('home') }}" class="inline-flex items-center gap-x-2 rounded-md bg-sky-600 px-3.5 py-2.5 text-sm font-semibold text-white shadow-xs hover:bg-sky-500 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-sky-600 dark:bg-sky-500 dark:shadow-none dark:hover:bg-sky-400 dark:focus-visible:outline-sky-500">
                 Return Home
             </a>
         </div>

@@ -15,9 +15,9 @@
                 <div class="flex-1">
                     <label for="date" class="block text-sm font-medium text-[#0F172A] mb-2">Select Date</label>
                     <input type="date" id="date" name="date" value="{{ $date }}" required
-                        class="w-full px-4 py-3 border border-slate-300 rounded-lg shadow-sm focus:border-[#2563EB] focus:ring-2 focus:ring-[#2563EB] focus:ring-opacity-20 text-[#0F172A] text-sm transition-colors">
+                        class="w-full px-4 py-3 border border-slate-300 rounded-lg shadow-sm focus:border-sky-600 focus:ring-2 focus:ring-sky-600 focus:ring-opacity-20 text-[#0F172A] text-sm transition-colors">
                 </div>
-                <button type="submit" class="bg-[#2563EB] hover:bg-[#1E3A8A] text-white px-6 py-3 rounded-lg font-medium shadow-sm transition-colors">
+                <button type="submit" class="inline-flex items-center gap-x-1.5 rounded-md bg-sky-600 px-3 py-2 text-sm font-semibold text-white shadow-xs hover:bg-sky-500 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-sky-600 dark:bg-sky-500 dark:shadow-none dark:hover:bg-sky-400 dark:focus-visible:outline-sky-500">
                     Load Slots
                 </button>
             </form>
@@ -47,7 +47,7 @@
     </div>
 
     <div class="mt-6">
-        <a href="{{ route('admin.schedules.show', $doctor) }}" class="inline-flex items-center space-x-2 text-[#2563EB] hover:text-[#1E3A8A] font-medium transition-colors">
+        <a href="{{ route('admin.schedules.show', $doctor) }}" class="inline-flex items-center space-x-2 text-sky-600 hover:text-sky-800 font-medium transition-colors">
             <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2">
                 <path stroke-linecap="round" stroke-linejoin="round" d="M10.5 19.5L3 12m0 0l7.5-7.5M3 12h18" />
             </svg>

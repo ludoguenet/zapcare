@@ -15,6 +15,7 @@ Route::get('/', function () {
 // Public doctor routes
 Route::get('/doctors', [DoctorController::class, 'index'])->name('doctors.index');
 Route::get('/doctors/{doctor}', [DoctorController::class, 'show'])->name('doctors.show');
+Route::get('/doctors/{doctor}/profile', [DoctorController::class, 'profile'])->name('doctors.profile');
 Route::get('/doctors/{doctor}/slots', [DoctorController::class, 'slots'])->name('doctors.slots');
 
 // Appointment booking routes

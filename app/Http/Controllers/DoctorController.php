@@ -63,4 +63,44 @@ class DoctorController extends Controller
             'date' => $date,
         ]);
     }
+
+    /**
+     * Display doctor profile with all schedule information.
+     */
+    public function profile(User $doctor)
+    {
+        if (!$doctor->is_doctor) {
+            abort(404);
+        }
+
+        $doctor->load('specialties');
+        
+        // Load all schedules with periods
+        $allSchedules = $doctor->schedules()
+            ->with('periods')
+            ->orderBy('start_date', 'desc')
+            ->orderBy('created_at', 'desc')
+            ->get();
+
+        // Group schedules by type
+        $appointments = $allSchedules->filter(function ($schedule) {
+            return $schedule->schedule_type && $schedule->schedule_type->value === 'appointment';
+        });
+
+        $blocked = $allSchedules->filter(function ($schedule) {
+            return $schedule->schedule_type && $schedule->schedule_type->value === 'blocked';
+        });
+
+        $buffer = $allSchedules->filter(function ($schedule) {
+            return $schedule->schedule_type && $schedule->schedule_type->value === 'buffer';
+        });
+
+        $availability = $allSchedules->filter(function ($schedule) {
+            return $schedule->schedule_type && 
+                   $schedule->schedule_type->value === 'availability' && 
+                   $schedule->name === 'Office Hours';
+        });
+
+        return view('doctors.profile', compact('doctor', 'appointments', 'blocked', 'buffer', 'availability'));
+    }
 }

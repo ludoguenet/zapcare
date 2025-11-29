@@ -25,7 +25,7 @@
                             <label class="flex items-center cursor-pointer p-2 rounded-lg hover:bg-slate-50 transition-colors">
                                 <input type="checkbox" name="days[]" value="{{ $day }}" 
                                     {{ in_array($day, ['monday', 'tuesday', 'wednesday', 'thursday', 'friday']) ? 'checked' : '' }}
-                                    class="rounded border-slate-300 text-[#2563EB] focus:ring-[#2563EB] w-5 h-5">
+                                    class="rounded border-slate-300 text-sky-600 focus:ring-sky-600 w-5 h-5">
                                 <span class="ml-3 text-sm text-[#0F172A] capitalize">{{ $day }}</span>
                             </label>
                         @endforeach
@@ -35,25 +35,25 @@
                     <div>
                         <label class="block text-sm font-medium text-[#0F172A] mb-2">Morning Start</label>
                         <input type="time" name="morning_start" value="09:00" required
-                            class="w-full px-4 py-3 border border-slate-300 rounded-lg shadow-sm focus:border-[#2563EB] focus:ring-2 focus:ring-[#2563EB] focus:ring-opacity-20 text-[#0F172A] text-sm transition-colors">
+                            class="w-full px-4 py-3 border border-slate-300 rounded-lg shadow-sm focus:border-sky-600 focus:ring-2 focus:ring-sky-600 focus:ring-opacity-20 text-[#0F172A] text-sm transition-colors">
                     </div>
                     <div>
                         <label class="block text-sm font-medium text-[#0F172A] mb-2">Morning End</label>
                         <input type="time" name="morning_end" value="12:00" required
-                            class="w-full px-4 py-3 border border-slate-300 rounded-lg shadow-sm focus:border-[#2563EB] focus:ring-2 focus:ring-[#2563EB] focus:ring-opacity-20 text-[#0F172A] text-sm transition-colors">
+                            class="w-full px-4 py-3 border border-slate-300 rounded-lg shadow-sm focus:border-sky-600 focus:ring-2 focus:ring-sky-600 focus:ring-opacity-20 text-[#0F172A] text-sm transition-colors">
                     </div>
                     <div>
                         <label class="block text-sm font-medium text-[#0F172A] mb-2">Afternoon Start</label>
                         <input type="time" name="afternoon_start" value="14:00" required
-                            class="w-full px-4 py-3 border border-slate-300 rounded-lg shadow-sm focus:border-[#2563EB] focus:ring-2 focus:ring-[#2563EB] focus:ring-opacity-20 text-[#0F172A] text-sm transition-colors">
+                            class="w-full px-4 py-3 border border-slate-300 rounded-lg shadow-sm focus:border-sky-600 focus:ring-2 focus:ring-sky-600 focus:ring-opacity-20 text-[#0F172A] text-sm transition-colors">
                     </div>
                     <div>
                         <label class="block text-sm font-medium text-[#0F172A] mb-2">Afternoon End</label>
                         <input type="time" name="afternoon_end" value="17:00" required
-                            class="w-full px-4 py-3 border border-slate-300 rounded-lg shadow-sm focus:border-[#2563EB] focus:ring-2 focus:ring-[#2563EB] focus:ring-opacity-20 text-[#0F172A] text-sm transition-colors">
+                            class="w-full px-4 py-3 border border-slate-300 rounded-lg shadow-sm focus:border-sky-600 focus:ring-2 focus:ring-sky-600 focus:ring-opacity-20 text-[#0F172A] text-sm transition-colors">
                     </div>
                 </div>
-                <button type="submit" class="w-full bg-[#2563EB] hover:bg-[#1E3A8A] text-white px-4 py-3 rounded-lg font-medium shadow-sm transition-colors">
+                <button type="submit" class="inline-flex items-center justify-center gap-x-1.5 w-full rounded-md bg-sky-600 px-3 py-2 text-sm font-semibold text-white shadow-xs hover:bg-sky-500 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-sky-600 dark:bg-sky-500 dark:shadow-none dark:hover:bg-sky-400 dark:focus-visible:outline-sky-500">
                     Create Office Hours
                 </button>
             </form>
@@ -71,26 +71,26 @@
                     <div class="mb-4">
                         <label class="block text-sm font-medium text-[#0F172A] mb-2">Name</label>
                         <input type="text" name="name" placeholder="e.g., Lunch Break" required
-                            class="w-full px-4 py-3 border border-slate-300 rounded-lg shadow-sm focus:border-[#2563EB] focus:ring-2 focus:ring-[#2563EB] focus:ring-opacity-20 text-[#0F172A] text-sm transition-colors">
+                            class="w-full px-4 py-3 border border-slate-300 rounded-lg shadow-sm focus:border-sky-600 focus:ring-2 focus:ring-sky-600 focus:ring-opacity-20 text-[#0F172A] text-sm transition-colors">
                     </div>
                     <div class="mb-4">
                         <label class="block text-sm font-medium text-[#0F172A] mb-2">Date</label>
                         <input type="date" name="date" required
-                            class="w-full px-4 py-3 border border-slate-300 rounded-lg shadow-sm focus:border-[#2563EB] focus:ring-2 focus:ring-[#2563EB] focus:ring-opacity-20 text-[#0F172A] text-sm transition-colors">
+                            class="w-full px-4 py-3 border border-slate-300 rounded-lg shadow-sm focus:border-sky-600 focus:ring-2 focus:ring-sky-600 focus:ring-opacity-20 text-[#0F172A] text-sm transition-colors">
                     </div>
                     <div class="grid grid-cols-2 gap-4 mb-6">
                         <div>
                             <label class="block text-sm font-medium text-[#0F172A] mb-2">Start Time</label>
                             <input type="time" name="start_time" required
-                                class="w-full px-4 py-3 border border-slate-300 rounded-lg shadow-sm focus:border-[#2563EB] focus:ring-2 focus:ring-[#2563EB] focus:ring-opacity-20 text-[#0F172A] text-sm transition-colors">
+                                class="w-full px-4 py-3 border border-slate-300 rounded-lg shadow-sm focus:border-sky-600 focus:ring-2 focus:ring-sky-600 focus:ring-opacity-20 text-[#0F172A] text-sm transition-colors">
                         </div>
                         <div>
                             <label class="block text-sm font-medium text-[#0F172A] mb-2">End Time</label>
                             <input type="time" name="end_time" required
-                                class="w-full px-4 py-3 border border-slate-300 rounded-lg shadow-sm focus:border-[#2563EB] focus:ring-2 focus:ring-[#2563EB] focus:ring-opacity-20 text-[#0F172A] text-sm transition-colors">
+                                class="w-full px-4 py-3 border border-slate-300 rounded-lg shadow-sm focus:border-sky-600 focus:ring-2 focus:ring-sky-600 focus:ring-opacity-20 text-[#0F172A] text-sm transition-colors">
                         </div>
                     </div>
-                    <button type="submit" class="w-full bg-[#EF4444] hover:bg-red-700 text-white px-4 py-3 rounded-lg font-medium shadow-sm transition-colors">
+                    <button type="submit" class="inline-flex items-center justify-center gap-x-1.5 w-full rounded-md bg-red-600 px-3 py-2 text-sm font-semibold text-white shadow-xs hover:bg-red-500 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-red-600 dark:bg-red-500 dark:shadow-none dark:hover:bg-red-400 dark:focus-visible:outline-red-500">
                         Block Period
                     </button>
                 </form>
@@ -138,7 +138,7 @@
                                     <dt class="text-[#64748B] mb-2">Periods</dt>
                                     <dd class="flex flex-wrap gap-1.5 mt-2">
                                         @foreach($schedule->periods as $period)
-                                            <span class="inline-flex items-center rounded-md bg-[#DBEAFE] px-2 py-1 text-xs font-medium text-[#1E3A8A] ring-1 ring-inset ring-[#2563EB]/20">
+                                            <span class="inline-flex items-center rounded-md bg-sky-100 px-2 py-1 text-xs font-medium text-sky-800 ring-1 ring-inset ring-sky-600/20">
                                                 {{ $period->start_time }} - {{ $period->end_time }}
                                             </span>
                                         @endforeach
@@ -157,7 +157,7 @@
 
     <!-- Preview Slots -->
     <div class="mt-6">
-        <a href="{{ route('admin.schedules.preview', $doctor) }}" class="inline-flex items-center space-x-2 text-[#2563EB] hover:text-[#1E3A8A] font-medium transition-colors">
+        <a href="{{ route('admin.schedules.preview', $doctor) }}" class="inline-flex items-center space-x-2 text-sky-600 hover:text-sky-800 font-medium transition-colors">
             <span>Preview Bookable Slots</span>
             <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2">
                 <path stroke-linecap="round" stroke-linejoin="round" d="M13.5 4.5L21 12m0 0l-7.5 7.5M21 12H3" />

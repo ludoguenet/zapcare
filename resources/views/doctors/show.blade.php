@@ -5,21 +5,33 @@
 @section('content')
 <div class="max-w-7xl mx-auto px-6 lg:px-16 mb-8">
     <div class="overflow-hidden rounded-xl border border-slate-200 bg-white">
-        <div class="flex items-center gap-x-4 px-6 py-5">
-            <div class="flex h-12 w-12 flex-none items-center justify-center rounded-lg bg-[#DBEAFE]">
-                <i data-lucide="user-round" class="w-6 h-6 text-[#2563EB]"></i>
-            </div>
-            <div class="flex-1 min-w-0">
-                <h1 class="text-xl font-semibold text-[#0F172A]">{{ $doctor->name }}</h1>
-                <p class="text-sm text-[#64748B] mt-0.5">{{ $doctor->email }}</p>
-            </div>
-            @if($doctor->specialties->count() > 0)
-                <div class="flex flex-wrap gap-2">
-                    @foreach($doctor->specialties as $specialty)
-                        <span class="rounded-md bg-[#DBEAFE] px-2.5 py-1 text-xs font-medium text-[#1E3A8A]">{{ $specialty->name }}</span>
-                    @endforeach
+        <div class="px-6 py-6">
+            <div class="flex items-start justify-between gap-6">
+                <div class="flex items-start gap-4 flex-1 min-w-0">
+                    <div class="flex h-14 w-14 flex-none items-center justify-center rounded-lg bg-sky-100">
+                        <i data-lucide="user-round" class="w-7 h-7 text-sky-600"></i>
+                    </div>
+                    <div class="flex-1 min-w-0">
+                        <h1 class="text-2xl font-semibold text-[#0F172A]">{{ $doctor->name }}</h1>
+                        <p class="text-sm text-[#64748B] mt-1">{{ $doctor->email }}</p>
+                        @if($doctor->specialties->count() > 0)
+                            <div class="flex flex-wrap gap-2 mt-3">
+                                @foreach($doctor->specialties as $specialty)
+                                    <span class="inline-flex items-center rounded-md bg-sky-50 px-2.5 py-1 text-xs font-medium text-sky-700 ring-1 ring-inset ring-sky-200">
+                                        {{ $specialty->name }}
+                                    </span>
+                                @endforeach
+                            </div>
+                        @endif
+                    </div>
                 </div>
-            @endif
+                <div class="flex-shrink-0">
+                    <a href="{{ route('doctors.profile', $doctor) }}" class="inline-flex items-center gap-x-2 rounded-md bg-sky-600 px-4 py-2.5 text-sm font-semibold text-white shadow-xs hover:bg-sky-500 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-sky-600 dark:bg-sky-500 dark:shadow-none dark:hover:bg-sky-400 dark:focus-visible:outline-sky-500">
+                        <i data-lucide="user-circle" class="w-4 h-4"></i>
+                        View Profile
+                    </a>
+                </div>
+            </div>
         </div>
     </div>
 </div>
@@ -59,8 +71,8 @@
                                 :class="[
                                     'mx-auto flex size-8 items-center justify-center rounded-full transition-colors',
                                     day.isPast ? 'text-slate-300 cursor-not-allowed' : '',
-                                    day.isSelected ? 'font-semibold text-white bg-[#2563EB]' : '',
-                                    !day.isSelected && day.isToday ? 'font-semibold text-[#2563EB] hover:bg-[#DBEAFE]' : '',
+                                    day.isSelected ? 'font-semibold text-white bg-sky-600' : '',
+                                    !day.isSelected && day.isToday ? 'font-semibold text-sky-600 hover:bg-sky-100' : '',
                                     !day.isSelected && !day.isToday && day.isCurrentMonth && !day.isPast ? 'text-[#0F172A] hover:bg-slate-100' : '',
                                     !day.isCurrentMonth ? 'text-slate-400' : ''
                                 ]">
@@ -79,16 +91,16 @@
                 
                 <!-- Loading State -->
                 <div x-show="loading" class="text-center py-12">
-                    <div class="inline-block animate-spin rounded-full h-6 w-6 border-2 border-[#2563EB] border-t-transparent mb-3"></div>
+                    <div class="inline-block animate-spin rounded-full h-6 w-6 border-2 border-sky-600 border-t-transparent mb-3"></div>
                     <p class="text-xs text-[#64748B]">Loading slots...</p>
                 </div>
 
                 <!-- Available Slots List -->
                 <ol x-show="!loading && availableSlots.length > 0" class="flex flex-col gap-y-2">
                     <template x-for="slot in availableSlots" :key="slot.start_time">
-                        <li class="group flex items-center gap-x-3 rounded-lg px-4 py-3 border border-slate-200 hover:border-[#2563EB] hover:bg-slate-50 transition-all cursor-pointer"
+                        <li class="group flex items-center gap-x-3 rounded-lg px-4 py-3 border border-slate-200 hover:border-sky-600 hover:bg-slate-50 transition-all cursor-pointer"
                             @click="selectSlot(slot)"
-                            :class="selectedSlot && selectedSlot.start_time === slot.start_time ? 'bg-[#DBEAFE] border-[#2563EB]' : ''">
+                            :class="selectedSlot && selectedSlot.start_time === slot.start_time ? 'bg-sky-100 border-sky-600' : ''">
                             <div class="flex h-9 w-9 flex-none items-center justify-center rounded-full bg-[#A7F3D0]">
                                 <svg class="w-4 h-4 text-[#10B981]" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2.5">
                                     <path stroke-linecap="round" stroke-linejoin="round" d="M9 12.75L11.25 15 15 9.75M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
@@ -132,14 +144,14 @@
                         id="patient_name" 
                         name="patient_name" 
                         required
-                        class="w-full px-4 py-3 border border-slate-300 rounded-lg focus:border-[#2563EB] focus:ring-2 focus:ring-[#2563EB] focus:ring-opacity-20 text-[#0F172A] text-sm transition-colors"
+                        class="w-full px-4 py-3 border border-slate-300 rounded-lg focus:border-sky-600 focus:ring-2 focus:ring-sky-600 focus:ring-opacity-20 text-[#0F172A] text-sm transition-colors"
                         placeholder="Enter your full name"
                     >
                 </div>
 
                 <button 
                     type="submit" 
-                    class="w-full bg-[#2563EB] hover:bg-[#1E3A8A] text-white px-6 py-3 rounded-lg font-medium transition-colors"
+                    class="inline-flex items-center justify-center gap-x-1.5 w-full rounded-md bg-sky-600 px-3 py-2 text-sm font-semibold text-white shadow-xs hover:bg-sky-500 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-sky-600 dark:bg-sky-500 dark:shadow-none dark:hover:bg-sky-400 dark:focus-visible:outline-sky-500"
                 >
                     Confirm Booking
                 </button>

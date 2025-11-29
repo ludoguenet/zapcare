@@ -18,22 +18,22 @@
             <div class="mb-6">
                 <label for="name" class="block text-sm font-medium text-[#0F172A] mb-2">Name</label>
                 <input type="text" id="name" name="name" value="{{ old('name') }}" required
-                    class="w-full px-4 py-3 border border-slate-300 rounded-lg shadow-sm focus:border-[#2563EB] focus:ring-2 focus:ring-[#2563EB] focus:ring-opacity-20 text-[#0F172A] text-sm transition-colors"
+                    class="w-full px-4 py-3 border border-slate-300 rounded-lg shadow-sm focus:border-sky-600 focus:ring-2 focus:ring-sky-600 focus:ring-opacity-20 text-[#0F172A] text-sm transition-colors"
                     placeholder="e.g., Cardiology">
             </div>
 
             <div class="mb-6">
                 <label for="description" class="block text-sm font-medium text-[#0F172A] mb-2">Description</label>
                 <textarea id="description" name="description" rows="3"
-                    class="w-full px-4 py-3 border border-slate-300 rounded-lg shadow-sm focus:border-[#2563EB] focus:ring-2 focus:ring-[#2563EB] focus:ring-opacity-20 text-[#0F172A] text-sm transition-colors"
+                    class="w-full px-4 py-3 border border-slate-300 rounded-lg shadow-sm focus:border-sky-600 focus:ring-2 focus:ring-sky-600 focus:ring-opacity-20 text-[#0F172A] text-sm transition-colors"
                     placeholder="Brief description of the specialty">{{ old('description') }}</textarea>
             </div>
 
             <div class="flex gap-4">
-                <button type="submit" class="bg-[#2563EB] hover:bg-[#1E3A8A] text-white px-6 py-3 rounded-lg font-medium shadow-sm transition-colors">
+                <button type="submit" class="inline-flex items-center gap-x-1.5 rounded-md bg-sky-600 px-3 py-2 text-sm font-semibold text-white shadow-xs hover:bg-sky-500 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-sky-600 dark:bg-sky-500 dark:shadow-none dark:hover:bg-sky-400 dark:focus-visible:outline-sky-500">
                     Create Specialty
                 </button>
-                <a href="{{ route('admin.specialties.index') }}" class="bg-slate-100 hover:bg-slate-200 text-[#0F172A] px-6 py-3 rounded-lg font-medium transition-colors">
+                <a href="{{ route('admin.specialties.index') }}" class="inline-flex items-center gap-x-1.5 rounded-md bg-sky-50 px-3 py-2 text-sm font-semibold text-sky-600 shadow-xs hover:bg-sky-100 dark:bg-sky-500/20 dark:text-sky-400 dark:shadow-none dark:hover:bg-sky-500/30">
                     Cancel
                 </a>
             </div>

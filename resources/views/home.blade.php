@@ -11,7 +11,7 @@
         </div>
         <h1 class="text-5xl font-semibold text-[#0F172A] mb-4">Book Care in a Flash</h1>
         <p class="text-lg text-[#64748B] mb-10 max-w-2xl mx-auto">Modern scheduling for modern clinics. Fast, simple, reliable care scheduling.</p>
-        <a href="{{ route('doctors.index') }}" class="inline-block bg-[#2563EB] hover:bg-[#1E3A8A] text-white px-8 py-3 rounded-lg font-medium transition-colors">
+        <a href="{{ route('doctors.index') }}" class="inline-flex items-center gap-x-2 rounded-md bg-sky-600 px-3.5 py-2.5 text-sm font-semibold text-white shadow-xs hover:bg-sky-500 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-sky-600 dark:bg-sky-500 dark:shadow-none dark:hover:bg-sky-400 dark:focus-visible:outline-sky-500">
             Browse Doctors
         </a>
     </div>
@@ -21,7 +21,7 @@
         <h2 class="text-2xl font-semibold text-[#0F172A] mb-10 text-center">Our Specialties</h2>
         <div class="grid grid-cols-1 md:grid-cols-3 gap-5">
             @forelse(\App\Models\Specialty::all() as $specialty)
-                <a href="{{ route('doctors.index', ['specialty_id' => $specialty->id]) }}" class="group relative rounded-xl border border-slate-200 bg-white p-6 focus-within:outline-2 focus-within:-outline-offset-2 focus-within:outline-[#2563EB] hover:shadow-sm hover:border-[#2563EB] transition-all">
+                <a href="{{ route('doctors.index', ['specialty_id' => $specialty->id]) }}" class="group relative rounded-xl border border-slate-200 bg-white p-6 focus-within:outline-2 focus-within:-outline-offset-2 focus-within:outline-sky-600 hover:shadow-sm hover:border-sky-600 transition-all">
                     <div>
                         @php
                             $iconName = strtolower($specialty->name);
@@ -73,7 +73,7 @@
                                 $lucideIcon = 'briefcase-medical';
                             }
                         @endphp
-                        <span class="inline-flex rounded-lg bg-[#DBEAFE] p-3 text-[#2563EB]">
+                        <span class="inline-flex rounded-lg bg-sky-100 p-3 text-sky-600">
                             <i data-lucide="{{ $lucideIcon }}" class="w-6 h-6"></i>
                         </span>
                     </div>
@@ -86,7 +86,7 @@
                             <p class="mt-2 text-sm text-[#64748B]">{{ $specialty->description }}</p>
                         @endif
                     </div>
-                    <span aria-hidden="true" class="pointer-events-none absolute top-6 right-6 text-slate-300 group-hover:text-[#2563EB] transition-colors">
+                    <span aria-hidden="true" class="pointer-events-none absolute top-6 right-6 text-slate-300 group-hover:text-sky-600 transition-colors">
                         <i data-lucide="arrow-up-right" class="w-5 h-5"></i>
                     </span>
                 </a>
