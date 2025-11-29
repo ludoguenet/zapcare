@@ -51,6 +51,37 @@
                 </div>
             </div>
 
+            <div class="mb-6" id="schedule-section" style="display: {{ $user->is_doctor ? 'block' : 'none' }}">
+                <label class="block text-sm font-medium text-[#0F172A] mb-3">Weekly Schedule</label>
+                <p class="text-xs text-[#64748B] mb-4">Select the days and time periods when this doctor is available</p>
+                <div class="space-y-3">
+                    @php
+                        $days = ['monday' => 'Monday', 'tuesday' => 'Tuesday', 'wednesday' => 'Wednesday', 
+                                 'thursday' => 'Thursday', 'friday' => 'Friday', 'saturday' => 'Saturday', 
+                                 'sunday' => 'Sunday'];
+                    @endphp
+                    @foreach($days as $dayKey => $dayName)
+                        <div class="flex items-center justify-between p-3 rounded-lg border border-slate-200 hover:bg-slate-50 transition-colors">
+                            <span class="text-sm font-medium text-[#0F172A] min-w-[100px]">{{ $dayName }}</span>
+                            <div class="flex items-center gap-6">
+                                <label class="flex items-center cursor-pointer">
+                                    <input type="checkbox" name="schedule[{{ $dayKey }}][am]" value="1"
+                                        {{ isset($scheduleData) && isset($scheduleData[$dayKey]['am']) && $scheduleData[$dayKey]['am'] ? 'checked' : '' }}
+                                        class="rounded border-slate-300 text-[#2563EB] focus:ring-[#2563EB] w-4 h-4">
+                                    <span class="ml-2 text-sm text-[#0F172A]">AM</span>
+                                </label>
+                                <label class="flex items-center cursor-pointer">
+                                    <input type="checkbox" name="schedule[{{ $dayKey }}][pm]" value="1"
+                                        {{ isset($scheduleData) && isset($scheduleData[$dayKey]['pm']) && $scheduleData[$dayKey]['pm'] ? 'checked' : '' }}
+                                        class="rounded border-slate-300 text-[#2563EB] focus:ring-[#2563EB] w-4 h-4">
+                                    <span class="ml-2 text-sm text-[#0F172A]">PM</span>
+                                </label>
+                            </div>
+                        </div>
+                    @endforeach
+                </div>
+            </div>
+
             <div class="flex gap-4">
                 <button type="submit" class="bg-[#2563EB] hover:bg-[#1E3A8A] text-white px-6 py-3 rounded-lg font-medium shadow-sm transition-colors">
                     Update User
@@ -65,7 +96,9 @@
 
 <script>
 document.querySelector('input[name="is_doctor"]').addEventListener('change', function() {
-    document.getElementById('specialties-section').style.display = this.checked ? 'block' : 'none';
+    const isChecked = this.checked;
+    document.getElementById('specialties-section').style.display = isChecked ? 'block' : 'none';
+    document.getElementById('schedule-section').style.display = isChecked ? 'block' : 'none';
 });
 </script>
 @endsection
