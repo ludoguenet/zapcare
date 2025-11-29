@@ -1,0 +1,37 @@
+@import 'tailwindcss';
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&display=swap');
+
+@source '../../vendor/laravel/framework/src/Illuminate/Pagination/resources/views/*.blade.php';
+@source '../../storage/framework/views/*.php';
+@source '../**/*.blade.php';
+@source '../**/*.js';
+
+@theme {
+    --font-sans: 'Inter', ui-sans-serif, system-ui, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji',
+        'Segoe UI Symbol', 'Noto Color Emoji';
+    
+    /* ZapCare Brand Colors */
+    --color-zapcare-blue: #2563EB;
+    --color-zapcare-teal: #2DD4BF;
+    --color-zapcare-navy: #1E3A8A;
+    --color-soft-mint: #A7F3D0;
+    --color-gentle-sky: #DBEAFE;
+    --color-zap-yellow: #FACC15;
+    --color-cloud-white: #F8FAFC;
+    --color-slate-grey: #64748B;
+    --color-ink-black: #0F172A;
+    
+    /* Medical Status Colors */
+    --color-success: #10B981;
+    --color-warning: #FBBF24;
+    --color-error: #EF4444;
+}
+
+/* Custom select input styling */
+select {
+    background-image: none;
+}
+
+select:focus {
+    outline: none;
+}
