@@ -99,4 +99,3 @@ A modern, minimalist clinic scheduling application built with Laravel, Blade, Al
 ## License
 
 MIT
-# zapcare
