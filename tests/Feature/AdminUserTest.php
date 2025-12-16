@@ -33,7 +33,7 @@ class AdminUserTest extends TestCase
     {
         $user = User::factory()->create();
 
-        $response = $this->get('/admin/users/' . $user->id . '/edit');
+        $response = $this->get('/admin/users/'.$user->id.'/edit');
 
         $response->assertStatus(200);
         $response->assertSee($user->name);
@@ -43,7 +43,7 @@ class AdminUserTest extends TestCase
     {
         $user = User::factory()->create();
 
-        $response = $this->put('/admin/users/' . $user->id, [
+        $response = $this->put('/admin/users/'.$user->id, [
             'name' => 'Updated Name',
             'email' => $user->email,
             'is_doctor' => true,
@@ -51,7 +51,7 @@ class AdminUserTest extends TestCase
 
         $response->assertRedirect(route('admin.users.index'));
         $response->assertSessionHas('success');
-        
+
         $this->assertDatabaseHas('users', [
             'id' => $user->id,
             'name' => 'Updated Name',
@@ -65,7 +65,7 @@ class AdminUserTest extends TestCase
         $specialty1 = Specialty::factory()->create();
         $specialty2 = Specialty::factory()->create();
 
-        $response = $this->put('/admin/users/' . $doctor->id, [
+        $response = $this->put('/admin/users/'.$doctor->id, [
             'name' => $doctor->name,
             'email' => $doctor->email,
             'is_doctor' => true,
@@ -73,7 +73,7 @@ class AdminUserTest extends TestCase
         ]);
 
         $response->assertRedirect(route('admin.users.index'));
-        
+
         $this->assertTrue($doctor->fresh()->specialties->contains($specialty1));
         $this->assertTrue($doctor->fresh()->specialties->contains($specialty2));
     }
@@ -84,7 +84,7 @@ class AdminUserTest extends TestCase
         $specialty = Specialty::factory()->create();
         $doctor->specialties()->attach($specialty);
 
-        $response = $this->put('/admin/users/' . $doctor->id, [
+        $response = $this->put('/admin/users/'.$doctor->id, [
             'name' => $doctor->name,
             'email' => $doctor->email,
             'is_doctor' => true,
@@ -92,7 +92,7 @@ class AdminUserTest extends TestCase
         ]);
 
         $response->assertRedirect(route('admin.users.index'));
-        
+
         $this->assertFalse($doctor->fresh()->specialties->contains($specialty));
     }
 
@@ -101,7 +101,7 @@ class AdminUserTest extends TestCase
         $user1 = User::factory()->create(['email' => 'test@example.com']);
         $user2 = User::factory()->create();
 
-        $response = $this->put('/admin/users/' . $user2->id, [
+        $response = $this->put('/admin/users/'.$user2->id, [
             'name' => $user2->name,
             'email' => 'test@example.com',
             'is_doctor' => false,

@@ -33,7 +33,7 @@ class DoctorController extends Controller
      */
     public function show(User $doctor)
     {
-        if (!$doctor->is_doctor) {
+        if (! $doctor->is_doctor) {
             abort(404);
         }
 
@@ -51,7 +51,7 @@ class DoctorController extends Controller
             'date' => 'required|date|after_or_equal:today',
         ]);
 
-        if (!$doctor->is_doctor) {
+        if (! $doctor->is_doctor) {
             return response()->json(['error' => 'Invalid doctor'], 404);
         }
 
@@ -69,12 +69,12 @@ class DoctorController extends Controller
      */
     public function profile(User $doctor)
     {
-        if (!$doctor->is_doctor) {
+        if (! $doctor->is_doctor) {
             abort(404);
         }
 
         $doctor->load('specialties');
-        
+
         // Load all schedules with periods
         $allSchedules = $doctor->schedules()
             ->with('periods')
@@ -91,16 +91,12 @@ class DoctorController extends Controller
             return $schedule->schedule_type && $schedule->schedule_type->value === 'blocked';
         });
 
-        $buffer = $allSchedules->filter(function ($schedule) {
-            return $schedule->schedule_type && $schedule->schedule_type->value === 'buffer';
-        });
-
         $availability = $allSchedules->filter(function ($schedule) {
-            return $schedule->schedule_type && 
-                   $schedule->schedule_type->value === 'availability' && 
+            return $schedule->schedule_type &&
+                   $schedule->schedule_type->value === 'availability' &&
                    $schedule->name === 'Office Hours';
         });
 
-        return view('doctors.profile', compact('doctor', 'appointments', 'blocked', 'buffer', 'availability'));
+        return view('doctors.profile', compact('doctor', 'appointments', 'blocked', 'availability'));
     }
 }

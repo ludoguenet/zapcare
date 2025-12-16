@@ -19,7 +19,7 @@ class ScheduleController extends Controller
      */
     public function show(User $doctor)
     {
-        if (!$doctor->is_doctor) {
+        if (! $doctor->is_doctor) {
             abort(404);
         }
 
@@ -34,7 +34,7 @@ class ScheduleController extends Controller
      */
     public function createOfficeHours(Request $request, User $doctor)
     {
-        if (!$doctor->is_doctor) {
+        if (! $doctor->is_doctor) {
             abort(404);
         }
 
@@ -64,7 +64,7 @@ class ScheduleController extends Controller
      */
     public function createBlockedPeriod(Request $request, User $doctor)
     {
-        if (!$doctor->is_doctor) {
+        if (! $doctor->is_doctor) {
             abort(404);
         }
 
@@ -90,7 +90,7 @@ class ScheduleController extends Controller
      */
     public function previewSlots(User $doctor, Request $request)
     {
-        if (!$doctor->is_doctor) {
+        if (! $doctor->is_doctor) {
             abort(404);
         }
 

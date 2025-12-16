@@ -10,6 +10,7 @@ use Tests\TestCase;
 class DoctorTest extends TestCase
 {
     use RefreshDatabase;
+
     public function test_doctors_index_page_loads(): void
     {
         $response = $this->get('/doctors');
@@ -33,10 +34,10 @@ class DoctorTest extends TestCase
         $specialty = Specialty::factory()->create(['name' => 'Cardiology']);
         $doctor1 = User::factory()->create(['is_doctor' => true]);
         $doctor2 = User::factory()->create(['is_doctor' => true]);
-        
+
         $doctor1->specialties()->attach($specialty);
 
-        $response = $this->get('/doctors?specialty_id=' . $specialty->id);
+        $response = $this->get('/doctors?specialty_id='.$specialty->id);
 
         $response->assertStatus(200);
         $response->assertSee($doctor1->name);
@@ -47,7 +48,7 @@ class DoctorTest extends TestCase
     {
         $doctor = User::factory()->create(['is_doctor' => true]);
 
-        $response = $this->get('/doctors/' . $doctor->id);
+        $response = $this->get('/doctors/'.$doctor->id);
 
         $response->assertStatus(200);
         $response->assertSee($doctor->name);
@@ -57,7 +58,7 @@ class DoctorTest extends TestCase
     {
         $patient = User::factory()->create(['is_doctor' => false]);
 
-        $response = $this->get('/doctors/' . $patient->id);
+        $response = $this->get('/doctors/'.$patient->id);
 
         $response->assertStatus(404);
     }
@@ -67,12 +68,12 @@ class DoctorTest extends TestCase
         $doctor = User::factory()->create(['is_doctor' => true]);
         $date = now()->addDay()->format('Y-m-d');
 
-        $response = $this->get('/doctors/' . $doctor->id . '/slots?date=' . $date);
+        $response = $this->get('/doctors/'.$doctor->id.'/slots?date='.$date);
 
         $response->assertStatus(200);
         $response->assertJsonStructure([
             'slots',
-            'date'
+            'date',
         ]);
     }
 
@@ -80,7 +81,7 @@ class DoctorTest extends TestCase
     {
         $doctor = User::factory()->create(['is_doctor' => true]);
 
-        $response = $this->get('/doctors/' . $doctor->id . '/slots');
+        $response = $this->get('/doctors/'.$doctor->id.'/slots');
 
         // GET requests with validation errors redirect back
         $response->assertStatus(302);
@@ -91,7 +92,7 @@ class DoctorTest extends TestCase
         $doctor = User::factory()->create(['is_doctor' => true]);
         $pastDate = now()->subDay()->format('Y-m-d');
 
-        $response = $this->get('/doctors/' . $doctor->id . '/slots?date=' . $pastDate);
+        $response = $this->get('/doctors/'.$doctor->id.'/slots?date='.$pastDate);
 
         // GET requests with validation errors redirect back
         $response->assertStatus(302);

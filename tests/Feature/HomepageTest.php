@@ -8,6 +8,7 @@ use Tests\TestCase;
 class HomepageTest extends TestCase
 {
     use RefreshDatabase;
+
     public function test_homepage_loads_successfully(): void
     {
         $response = $this->get('/');

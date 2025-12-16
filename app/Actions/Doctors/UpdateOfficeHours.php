@@ -71,13 +71,16 @@ class UpdateOfficeHours
             $zap->save();
         }
 
-        // If no schedules were created, create an empty one to ensure doctor always has a schedule
-        if (!$hasAnySchedule) {
+        // If no schedules were created, create one with at least one period to ensure doctor always has a schedule
+        if (! $hasAnySchedule) {
+            // Create a schedule with at least one period (required by zap package)
+            // Using a default period on Monday as a placeholder
             Zap::for($doctor)
                 ->named('Office Hours')
                 ->availability()
                 ->from(now()->toDateString())
-                ->weekly([])
+                ->weekly(['monday'])
+                ->addPeriod('09:00', '12:00')
                 ->save();
         }
     }

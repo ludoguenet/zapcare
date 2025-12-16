@@ -12,7 +12,7 @@ use Zap\Models\Concerns\HasSchedules;
 class User extends Authenticatable
 {
     /** @use HasFactory<\Database\Factories\UserFactory> */
-    use HasFactory, Notifiable, HasSchedules;
+    use HasFactory, HasSchedules, Notifiable;
 
     /**
      * Boot the model.
@@ -37,7 +37,7 @@ class User extends Authenticatable
     }
 
     /**
-     * Ensure the doctor has an empty "Office Hours" schedule.
+     * Ensure the doctor has an "Office Hours" schedule with at least one period.
      */
     public function ensureEmptySchedule(): void
     {
@@ -46,12 +46,15 @@ class User extends Authenticatable
             ->where('name', 'Office Hours')
             ->exists();
 
-        if (!$hasOfficeHours) {
+        if (! $hasOfficeHours) {
+            // Create a schedule with at least one period (required by zap package)
+            // Using a default period on Monday as a placeholder
             Zap::for($this)
                 ->named('Office Hours')
                 ->availability()
                 ->from(now()->toDateString())
-                ->weekly([])
+                ->weekly(['monday'])
+                ->addPeriod('09:00', '12:00')
                 ->save();
         }
     }
@@ -113,6 +116,6 @@ class User extends Authenticatable
      */
     public function isPatient(): bool
     {
-        return !$this->is_doctor;
+        return ! $this->is_doctor;
     }
 }

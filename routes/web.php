@@ -1,10 +1,10 @@
 <?php
 
-use App\Http\Controllers\AppointmentController;
-use App\Http\Controllers\DoctorController;
 use App\Http\Controllers\Admin\ScheduleController;
 use App\Http\Controllers\Admin\SpecialtyController;
 use App\Http\Controllers\Admin\UserController;
+use App\Http\Controllers\AppointmentController;
+use App\Http\Controllers\DoctorController;
 use Illuminate\Support\Facades\Route;
 
 // Homepage

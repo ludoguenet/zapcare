@@ -14,7 +14,7 @@ class AdminScheduleTest extends TestCase
     {
         $doctor = User::factory()->create(['is_doctor' => true]);
 
-        $response = $this->get('/admin/doctors/' . $doctor->id . '/schedules');
+        $response = $this->get('/admin/doctors/'.$doctor->id.'/schedules');
 
         $response->assertStatus(200);
         $response->assertSee('Schedule Management');
@@ -24,7 +24,7 @@ class AdminScheduleTest extends TestCase
     {
         $patient = User::factory()->create(['is_doctor' => false]);
 
-        $response = $this->get('/admin/doctors/' . $patient->id . '/schedules');
+        $response = $this->get('/admin/doctors/'.$patient->id.'/schedules');
 
         $response->assertStatus(404);
     }
@@ -33,7 +33,7 @@ class AdminScheduleTest extends TestCase
     {
         $doctor = User::factory()->create(['is_doctor' => true]);
 
-        $response = $this->post('/admin/doctors/' . $doctor->id . '/schedules/office-hours', [
+        $response = $this->post('/admin/doctors/'.$doctor->id.'/schedules/office-hours', [
             'days' => ['monday', 'tuesday', 'wednesday'],
             'morning_start' => '09:00',
             'morning_end' => '12:00',
@@ -49,7 +49,7 @@ class AdminScheduleTest extends TestCase
     {
         $doctor = User::factory()->create(['is_doctor' => true]);
 
-        $response = $this->post('/admin/doctors/' . $doctor->id . '/schedules/office-hours', []);
+        $response = $this->post('/admin/doctors/'.$doctor->id.'/schedules/office-hours', []);
 
         $response->assertSessionHasErrors(['days', 'morning_start', 'morning_end', 'afternoon_start', 'afternoon_end']);
     }
@@ -59,7 +59,7 @@ class AdminScheduleTest extends TestCase
         $doctor = User::factory()->create(['is_doctor' => true]);
         $date = now()->addDay()->format('Y-m-d');
 
-        $response = $this->post('/admin/doctors/' . $doctor->id . '/schedules/blocked', [
+        $response = $this->post('/admin/doctors/'.$doctor->id.'/schedules/blocked', [
             'name' => 'Lunch Break',
             'date' => $date,
             'start_time' => '12:00',
@@ -75,7 +75,7 @@ class AdminScheduleTest extends TestCase
         $doctor = User::factory()->create(['is_doctor' => true]);
         $date = now()->addDay()->format('Y-m-d');
 
-        $response = $this->get('/admin/doctors/' . $doctor->id . '/schedules/preview?date=' . $date);
+        $response = $this->get('/admin/doctors/'.$doctor->id.'/schedules/preview?date='.$date);
 
         $response->assertStatus(200);
         $response->assertSee('Preview Bookable Slots');

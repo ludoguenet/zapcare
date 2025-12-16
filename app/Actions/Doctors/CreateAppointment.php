@@ -3,7 +3,6 @@
 namespace App\Actions\Doctors;
 
 use App\Models\User;
-use Carbon\Carbon;
 use Zap\Facades\Zap;
 
 class CreateAppointment
@@ -22,7 +21,7 @@ class CreateAppointment
         }
 
         Zap::for($doctor)
-            ->named('Appointment - ' . $patientName)
+            ->named('Appointment - '.$patientName)
             ->appointment()
             ->from($date)
             ->addPeriod($startTime, $endTime)

@@ -15,7 +15,7 @@ class DoctorSeeder extends Seeder
      */
     public function run(): void
     {
-        $createOfficeHours = new CreateOfficeHours();
+        $createOfficeHours = new CreateOfficeHours;
 
         $doctors = [
             [

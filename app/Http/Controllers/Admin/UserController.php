@@ -19,6 +19,7 @@ class UserController extends Controller
     public function index()
     {
         $users = User::with('specialties')->paginate(15);
+
         return view('admin.users.index', compact('users'));
     }
 
@@ -28,7 +29,7 @@ class UserController extends Controller
     public function edit(User $user)
     {
         $specialties = \App\Models\Specialty::all();
-        
+
         // Load existing schedule data if user is a doctor
         $scheduleData = [];
         if ($user->is_doctor) {
@@ -36,17 +37,17 @@ class UserController extends Controller
                 ->where('name', 'Office Hours')
                 ->with('periods')
                 ->get();
-            
+
             // Process each schedule to build the complete schedule data
             foreach ($officeHoursSchedules as $schedule) {
                 // Get days from frequency_config
                 $frequencyConfig = $schedule->frequency_config ?? [];
-                $days = $frequencyConfig['days'] ?? [];
-                
+                $days = $frequencyConfig->days ?? [];
+
                 // Determine AM/PM availability from periods for this specific schedule
                 $hasMorning = false;
                 $hasAfternoon = false;
-                
+
                 foreach ($schedule->periods as $period) {
                     $startHour = (int) date('H', strtotime($period->start_time));
                     if ($startHour < 12) {
@@ -55,14 +56,14 @@ class UserController extends Controller
                         $hasAfternoon = true;
                     }
                 }
-                
+
                 // Build schedule data structure for each day in this schedule
                 foreach ($days as $day) {
                     // Initialize the day if it doesn't exist
-                    if (!isset($scheduleData[$day])) {
+                    if (! isset($scheduleData[$day])) {
                         $scheduleData[$day] = ['am' => false, 'pm' => false];
                     }
-                    
+
                     // Set AM/PM based on this schedule's periods
                     if ($hasMorning) {
                         $scheduleData[$day]['am'] = true;
@@ -73,7 +74,7 @@ class UserController extends Controller
                 }
             }
         }
-        
+
         return view('admin.users.edit', compact('user', 'specialties', 'scheduleData'));
     }
 
@@ -84,7 +85,7 @@ class UserController extends Controller
     {
         $validated = $request->validate([
             'name' => 'required|string|max:255',
-            'email' => 'required|email|unique:users,email,' . $user->id,
+            'email' => 'required|email|unique:users,email,'.$user->id,
             'is_doctor' => 'boolean',
             'specialties' => 'array',
             'specialties.*' => 'exists:specialties,id',
@@ -102,7 +103,7 @@ class UserController extends Controller
             } else {
                 $user->specialties()->detach();
             }
-            
+
             // Update schedule if provided
             if ($request->has('schedule')) {
                 $this->updateOfficeHours->execute($user, $request->input('schedule', []));

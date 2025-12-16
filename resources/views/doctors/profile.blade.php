@@ -56,7 +56,7 @@
                                                 {{ \Carbon\Carbon::parse($firstPeriod->date)->format('M d, Y') }}
                                             </p>
                                             <p class="text-xs text-[#64748B]">
-                                                {{ \Carbon\Carbon::parse($firstPeriod->start_time)->format('g:i A') }} - 
+                                                {{ \Carbon\Carbon::parse($firstPeriod->start_time)->format('g:i A') }} -
                                                 {{ \Carbon\Carbon::parse($firstPeriod->end_time)->format('g:i A') }}
                                             </p>
                                         @endif
@@ -104,7 +104,7 @@
                                                 {{ \Carbon\Carbon::parse($firstPeriod->date)->format('M d, Y') }}
                                             </p>
                                             <p class="text-xs text-[#64748B]">
-                                                {{ \Carbon\Carbon::parse($firstPeriod->start_time)->format('g:i A') }} - 
+                                                {{ \Carbon\Carbon::parse($firstPeriod->start_time)->format('g:i A') }} -
                                                 {{ \Carbon\Carbon::parse($firstPeriod->end_time)->format('g:i A') }}
                                             </p>
                                         @endif
@@ -126,49 +126,6 @@
         </div>
     </div>
 
-    <!-- Buffer Periods -->
-    @if($buffer->count() > 0)
-    <div class="mt-6 overflow-hidden rounded-xl border border-slate-200 bg-white">
-        <div class="border-b border-slate-200 bg-slate-50 px-6 py-4">
-            <div class="flex items-center gap-2">
-                <i data-lucide="clock" class="w-5 h-5 text-[#F59E0B]"></i>
-                <h2 class="text-lg font-semibold text-[#0F172A]">Buffer Periods</h2>
-                <span class="ml-auto rounded-full bg-amber-100 px-2.5 py-0.5 text-xs font-medium text-amber-800">
-                    {{ $buffer->count() }}
-                </span>
-            </div>
-        </div>
-        <div class="p-6">
-            <div class="space-y-4">
-                @foreach($buffer as $bufferPeriod)
-                    @php
-                        $firstPeriod = $bufferPeriod->periods->first();
-                    @endphp
-                    <div class="rounded-lg border border-amber-200 bg-amber-50 p-4">
-                        <div class="flex items-start justify-between">
-                            <div class="flex-1">
-                                <h3 class="text-sm font-medium text-[#0F172A]">{{ $bufferPeriod->name ?? 'Buffer Period' }}</h3>
-                                @if($firstPeriod)
-                                    <p class="text-xs text-[#64748B] mt-1">
-                                        {{ \Carbon\Carbon::parse($firstPeriod->date)->format('M d, Y') }}
-                                    </p>
-                                    <p class="text-xs text-[#64748B]">
-                                        {{ \Carbon\Carbon::parse($firstPeriod->start_time)->format('g:i A') }} - 
-                                        {{ \Carbon\Carbon::parse($firstPeriod->end_time)->format('g:i A') }}
-                                    </p>
-                                @endif
-                            </div>
-                            <div class="flex h-8 w-8 flex-none items-center justify-center rounded-full bg-amber-100">
-                                <i data-lucide="clock" class="w-4 h-4 text-amber-600"></i>
-                            </div>
-                        </div>
-                    </div>
-                @endforeach
-            </div>
-        </div>
-    </div>
-    @endif
-
     <!-- Availability / Office Hours -->
     <div class="mt-6 overflow-hidden rounded-xl border border-slate-200 bg-white">
         <div class="border-b border-slate-200 bg-slate-50 px-6 py-4">
@@ -186,7 +143,7 @@
                     @foreach($availability as $schedule)
                         @php
                             $frequencyConfig = $schedule->frequency_config ?? [];
-                            $days = $frequencyConfig['days'] ?? [];
+                            $days = $frequencyConfig->days ?? [];
                             $dayNames = [
                                 'monday' => 'Monday',
                                 'tuesday' => 'Tuesday',
@@ -222,7 +179,7 @@
                                             <div class="flex items-center gap-2 text-sm text-[#64748B]">
                                                 <i data-lucide="clock" class="w-4 h-4"></i>
                                                 <span>
-                                                    {{ \Carbon\Carbon::parse($period->start_time)->format('g:i A') }} - 
+                                                    {{ \Carbon\Carbon::parse($period->start_time)->format('g:i A') }} -
                                                     {{ \Carbon\Carbon::parse($period->end_time)->format('g:i A') }}
                                                 </span>
                                             </div>
@@ -232,7 +189,7 @@
                             @endif
                             <div class="mt-4 pt-4 border-t border-slate-200">
                                 <p class="text-xs text-[#64748B]">
-                                    <span class="font-medium">Valid from:</span> 
+                                    <span class="font-medium">Valid from:</span>
                                     {{ \Carbon\Carbon::parse($schedule->start_date)->format('M d, Y') }}
                                     @if($schedule->end_date)
                                         - {{ \Carbon\Carbon::parse($schedule->end_date)->format('M d, Y') }}

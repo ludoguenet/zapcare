@@ -14,6 +14,7 @@ class SpecialtyController extends Controller
     public function index()
     {
         $specialties = Specialty::withCount('doctors')->paginate(15);
+
         return view('admin.specialties.index', compact('specialties'));
     }
 
@@ -54,7 +55,7 @@ class SpecialtyController extends Controller
     public function update(Request $request, Specialty $specialty)
     {
         $validated = $request->validate([
-            'name' => 'required|string|max:255|unique:specialties,name,' . $specialty->id,
+            'name' => 'required|string|max:255|unique:specialties,name,'.$specialty->id,
             'description' => 'nullable|string',
         ]);
 

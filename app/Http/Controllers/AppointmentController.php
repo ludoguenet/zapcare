@@ -18,7 +18,7 @@ class AppointmentController extends Controller
      */
     public function create(User $doctor, Request $request)
     {
-        if (!$doctor->is_doctor) {
+        if (! $doctor->is_doctor) {
             abort(404);
         }
 
@@ -33,7 +33,7 @@ class AppointmentController extends Controller
      */
     public function store(Request $request, User $doctor)
     {
-        if (!$doctor->is_doctor) {
+        if (! $doctor->is_doctor) {
             abort(404);
         }
 
@@ -47,12 +47,12 @@ class AppointmentController extends Controller
         // Check if slot is still available
         $slots = $doctor->getBookableSlots($validated['date'], 60, 15);
         $isAvailable = collect($slots)->first(function ($slot) use ($validated) {
-            return $slot['start_time'] === $validated['start_time'] 
+            return $slot['start_time'] === $validated['start_time']
                 && $slot['end_time'] === $validated['end_time']
                 && $slot['is_available'] === true;
         });
 
-        if (!$isAvailable) {
+        if (! $isAvailable) {
             return back()->withErrors(['slot' => 'This time slot is no longer available.'])->withInput();
         }
 

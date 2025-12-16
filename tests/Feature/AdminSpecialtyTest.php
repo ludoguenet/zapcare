@@ -45,7 +45,7 @@ class AdminSpecialtyTest extends TestCase
 
         $response->assertRedirect(route('admin.specialties.index'));
         $response->assertSessionHas('success');
-        
+
         $this->assertDatabaseHas('specialties', [
             'name' => 'Cardiology',
             'description' => 'Heart and cardiovascular system',
@@ -77,7 +77,7 @@ class AdminSpecialtyTest extends TestCase
     {
         $specialty = Specialty::factory()->create();
 
-        $response = $this->get('/admin/specialties/' . $specialty->id . '/edit');
+        $response = $this->get('/admin/specialties/'.$specialty->id.'/edit');
 
         $response->assertStatus(200);
         $response->assertSee($specialty->name);
@@ -87,14 +87,14 @@ class AdminSpecialtyTest extends TestCase
     {
         $specialty = Specialty::factory()->create();
 
-        $response = $this->put('/admin/specialties/' . $specialty->id, [
+        $response = $this->put('/admin/specialties/'.$specialty->id, [
             'name' => 'Updated Cardiology',
             'description' => 'Updated description',
         ]);
 
         $response->assertRedirect(route('admin.specialties.index'));
         $response->assertSessionHas('success');
-        
+
         $this->assertDatabaseHas('specialties', [
             'id' => $specialty->id,
             'name' => 'Updated Cardiology',
@@ -106,11 +106,11 @@ class AdminSpecialtyTest extends TestCase
     {
         $specialty = Specialty::factory()->create();
 
-        $response = $this->delete('/admin/specialties/' . $specialty->id);
+        $response = $this->delete('/admin/specialties/'.$specialty->id);
 
         $response->assertRedirect(route('admin.specialties.index'));
         $response->assertSessionHas('success');
-        
+
         $this->assertDatabaseMissing('specialties', [
             'id' => $specialty->id,
         ]);

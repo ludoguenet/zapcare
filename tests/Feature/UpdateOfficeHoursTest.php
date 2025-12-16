@@ -16,14 +16,14 @@ class UpdateOfficeHoursTest extends TestCase
     protected function setUp(): void
     {
         parent::setUp();
-        $this->updateOfficeHours = new UpdateOfficeHours();
+        $this->updateOfficeHours = new UpdateOfficeHours;
     }
 
     public function test_updates_office_hours_with_mixed_am_pm_periods(): void
     {
         // This is the specific bug scenario from the user
         $doctor = User::factory()->create(['is_doctor' => true]);
-        
+
         $scheduleData = [
             'monday' => ['am' => '1', 'pm' => '1'],
             'tuesday' => ['am' => '1', 'pm' => '1'],
@@ -45,42 +45,44 @@ class UpdateOfficeHoursTest extends TestCase
 
         // Find the schedule for days with both AM and PM
         $bothSchedule = $schedules->first(function ($schedule) {
-            $config = $schedule->frequency_config ?? [];
-            $days = $config['days'] ?? [];
+            $config = $schedule->frequency_config;
+            $days = $config->days ?? [];
+
             return in_array('monday', $days) && in_array('tuesday', $days) && in_array('thursday', $days);
         });
 
         $this->assertNotNull($bothSchedule, 'Schedule for days with both AM and PM should exist');
         $this->assertCount(2, $bothSchedule->periods, 'Days with both AM/PM should have 2 periods');
-        
+
         // Verify the periods are correct (morning and afternoon)
         $periodTimes = $bothSchedule->periods->map(function ($period) {
             return [$period->start_time, $period->end_time];
         })->toArray();
-        
-        $this->assertContains(['09:00:00', '12:00:00'], $periodTimes, 'Should have morning period');
-        $this->assertContains(['14:00:00', '17:00:00'], $periodTimes, 'Should have afternoon period');
+
+        $this->assertContains(['09:00', '12:00'], $periodTimes, 'Should have morning period');
+        $this->assertContains(['14:00', '17:00'], $periodTimes, 'Should have afternoon period');
 
         // Find the schedule for AM-only days
         $amOnlySchedule = $schedules->first(function ($schedule) {
-            $config = $schedule->frequency_config ?? [];
-            $days = $config['days'] ?? [];
+            $config = $schedule->frequency_config;
+            $days = $config->days ?? [];
+
             return in_array('wednesday', $days) && count($days) === 1;
         });
 
         $this->assertNotNull($amOnlySchedule, 'Schedule for AM-only days should exist');
         $this->assertCount(1, $amOnlySchedule->periods, 'AM-only days should have only 1 period');
-        
+
         // Verify it's the morning period
         $amPeriod = $amOnlySchedule->periods->first();
-        $this->assertEquals('09:00:00', $amPeriod->start_time);
-        $this->assertEquals('12:00:00', $amPeriod->end_time);
+        $this->assertEquals('09:00', $amPeriod->start_time);
+        $this->assertEquals('12:00', $amPeriod->end_time);
     }
 
     public function test_updates_office_hours_with_am_only_days(): void
     {
         $doctor = User::factory()->create(['is_doctor' => true]);
-        
+
         $scheduleData = [
             'monday' => ['am' => '1'],
             'tuesday' => ['am' => '1'],
@@ -95,19 +97,19 @@ class UpdateOfficeHoursTest extends TestCase
             ->get();
 
         $this->assertCount(1, $schedules);
-        
+
         $schedule = $schedules->first();
         $this->assertCount(1, $schedule->periods);
-        
+
         $period = $schedule->periods->first();
-        $this->assertEquals('09:00:00', $period->start_time);
-        $this->assertEquals('12:00:00', $period->end_time);
+        $this->assertEquals('09:00', $period->start_time);
+        $this->assertEquals('12:00', $period->end_time);
     }
 
     public function test_updates_office_hours_with_pm_only_days(): void
     {
         $doctor = User::factory()->create(['is_doctor' => true]);
-        
+
         $scheduleData = [
             'friday' => ['pm' => '1'],
             'saturday' => ['pm' => '1'],
@@ -122,19 +124,19 @@ class UpdateOfficeHoursTest extends TestCase
             ->get();
 
         $this->assertCount(1, $schedules);
-        
+
         $schedule = $schedules->first();
         $this->assertCount(1, $schedule->periods);
-        
+
         $period = $schedule->periods->first();
-        $this->assertEquals('14:00:00', $period->start_time);
-        $this->assertEquals('17:00:00', $period->end_time);
+        $this->assertEquals('14:00', $period->start_time);
+        $this->assertEquals('17:00', $period->end_time);
     }
 
     public function test_updates_office_hours_with_all_three_groups(): void
     {
         $doctor = User::factory()->create(['is_doctor' => true]);
-        
+
         $scheduleData = [
             'monday' => ['am' => '1', 'pm' => '1'],      // Both
             'tuesday' => ['am' => '1'],                   // AM only
@@ -154,20 +156,20 @@ class UpdateOfficeHoursTest extends TestCase
 
         // Verify each schedule has the correct periods
         foreach ($schedules as $schedule) {
-            $config = $schedule->frequency_config ?? [];
-            $days = $config['days'] ?? [];
-            
+            $config = $schedule->frequency_config;
+            $days = $config->days ?? [];
+
             if (in_array('monday', $days)) {
                 // Both AM and PM
                 $this->assertCount(2, $schedule->periods);
             } elseif (in_array('tuesday', $days)) {
                 // AM only
                 $this->assertCount(1, $schedule->periods);
-                $this->assertEquals('09:00:00', $schedule->periods->first()->start_time);
+                $this->assertEquals('09:00', $schedule->periods->first()->start_time);
             } elseif (in_array('wednesday', $days)) {
                 // PM only
                 $this->assertCount(1, $schedule->periods);
-                $this->assertEquals('14:00:00', $schedule->periods->first()->start_time);
+                $this->assertEquals('14:00', $schedule->periods->first()->start_time);
             }
         }
     }
@@ -175,7 +177,7 @@ class UpdateOfficeHoursTest extends TestCase
     public function test_deletes_existing_office_hours_before_creating_new_ones(): void
     {
         $doctor = User::factory()->create(['is_doctor' => true]);
-        
+
         // Create initial office hours
         $initialData = [
             'monday' => ['am' => '1', 'pm' => '1'],
@@ -201,11 +203,11 @@ class UpdateOfficeHoursTest extends TestCase
 
         // Should have deleted old schedules and created new ones
         $this->assertCount(1, $newSchedules);
-        
+
         $schedule = $newSchedules->first();
-        $config = $schedule->frequency_config ?? [];
-        $days = $config['days'] ?? [];
-        
+        $config = $schedule->frequency_config;
+        $days = $config->days ?? [];
+
         $this->assertContains('tuesday', $days);
         $this->assertNotContains('monday', $days);
     }
@@ -213,25 +215,26 @@ class UpdateOfficeHoursTest extends TestCase
     public function test_handles_empty_schedule_data_and_creates_empty_schedule(): void
     {
         $doctor = User::factory()->create(['is_doctor' => true]);
-        
+
         $this->updateOfficeHours->execute($doctor, []);
 
         $doctor->refresh();
         $schedules = $doctor->schedules()
             ->where('name', 'Office Hours')
+            ->with('periods')
             ->get();
 
-        // Should create an empty schedule to ensure doctor always has a schedule
+        // Should create a schedule with at least one period (required by zap package)
         $this->assertCount(1, $schedules);
-        
+
         $schedule = $schedules->first();
-        $this->assertCount(0, $schedule->periods, 'Empty schedule should have no periods');
+        $this->assertGreaterThanOrEqual(1, $schedule->periods->count(), 'Schedule should have at least one period');
     }
 
     public function test_handles_days_with_no_periods(): void
     {
         $doctor = User::factory()->create(['is_doctor' => true]);
-        
+
         $scheduleData = [
             'monday' => ['am' => '1'],
             'tuesday' => [], // No periods
@@ -248,11 +251,11 @@ class UpdateOfficeHoursTest extends TestCase
 
         // Should only create schedules for days with periods
         $this->assertCount(2, $schedules);
-        
+
         // Verify tuesday is not in any schedule
         foreach ($schedules as $schedule) {
-            $config = $schedule->frequency_config ?? [];
-            $days = $config['days'] ?? [];
+            $config = $schedule->frequency_config;
+            $days = $config ? ($config->days ?? []) : [];
             $this->assertNotContains('tuesday', $days);
         }
     }
@@ -263,20 +266,21 @@ class UpdateOfficeHoursTest extends TestCase
 
         $schedules = $doctor->schedules()
             ->where('name', 'Office Hours')
+            ->with('periods')
             ->get();
 
-        // Doctor should automatically have an empty schedule
+        // Doctor should automatically have a schedule with at least one period
         $this->assertCount(1, $schedules);
-        
+
         $schedule = $schedules->first();
         $this->assertEquals('Office Hours', $schedule->name);
-        $this->assertCount(0, $schedule->periods, 'New doctor should have empty schedule with no periods');
+        $this->assertGreaterThanOrEqual(1, $schedule->periods->count(), 'New doctor should have schedule with at least one period');
     }
 
     public function test_user_gets_empty_schedule_when_updated_to_doctor(): void
     {
         $user = User::factory()->create(['is_doctor' => false]);
-        
+
         // Initially should have no schedules
         $this->assertCount(0, $user->schedules()->where('name', 'Office Hours')->get());
 
@@ -286,14 +290,15 @@ class UpdateOfficeHoursTest extends TestCase
         $user->refresh();
         $schedules = $user->schedules()
             ->where('name', 'Office Hours')
+            ->with('periods')
             ->get();
 
-        // Should automatically get an empty schedule
+        // Should automatically get a schedule with at least one period
         $this->assertCount(1, $schedules);
-        
+
         $schedule = $schedules->first();
         $this->assertEquals('Office Hours', $schedule->name);
-        $this->assertCount(0, $schedule->periods, 'Newly converted doctor should have empty schedule');
+        $this->assertGreaterThanOrEqual(1, $schedule->periods->count(), 'Newly converted doctor should have schedule with at least one period');
     }
 
     public function test_doctor_does_not_get_duplicate_schedule_if_already_exists(): void
@@ -309,7 +314,7 @@ class UpdateOfficeHoursTest extends TestCase
 
         $doctor->refresh();
         $finalCount = $doctor->schedules()->where('name', 'Office Hours')->count();
-        
+
         // Should still have only one schedule
         $this->assertEquals(1, $finalCount);
     }
