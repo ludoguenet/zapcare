@@ -196,8 +196,10 @@ function bookingForm() {
             const prevMonthDays = prevMonth.getDate();
             for (let i = adjustedStartingDay - 1; i >= 0; i--) {
                 const dayNum = prevMonthDays - i;
-                const dateStr = `${year}-${String(month - 1).padStart(2, '0')}-${String(dayNum).padStart(2, '0')}`;
-                const date = new Date(year, month - 2, dayNum);
+                const prevMonth = month === 1 ? 12 : month - 1;
+                const prevYear = month === 1 ? year - 1 : year;
+                const dateStr = `${prevYear}-${String(prevMonth).padStart(2, '0')}-${String(dayNum).padStart(2, '0')}`;
+                const date = new Date(prevYear, prevMonth, dayNum);
                 date.setHours(0, 0, 0, 0);
                 
                 days.push({
@@ -232,8 +234,10 @@ function bookingForm() {
             const totalCells = 42; // 6 weeks * 7 days
             const remainingDays = totalCells - days.length;
             for (let dayNum = 1; dayNum <= remainingDays; dayNum++) {
-                const dateStr = `${year}-${String(month + 1).padStart(2, '0')}-${String(dayNum).padStart(2, '0')}`;
-                const date = new Date(year, month, dayNum);
+                const nextMonth = month === 12 ? 1 : month + 1;
+                const nextYear = month === 12 ? year + 1 : year;
+                const dateStr = `${nextYear}-${String(nextMonth).padStart(2, '0')}-${String(dayNum).padStart(2, '0')}`;
+                const date = new Date(nextYear, nextMonth, dayNum);
                 date.setHours(0, 0, 0, 0);
                 
                 days.push({
